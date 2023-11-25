@@ -6,7 +6,6 @@ function App() {
     const [teams, setTeams] = useState([]);
 
 
-
     function handleSubmit() {
         console.log(teams[0])
     }
@@ -14,7 +13,7 @@ function App() {
     return (
         <div className="App">
             <h1>The NBA App</h1>
-            <input type="text" value={query} name='searchBar' onChange={(e)=> setQuery(e.target.value)}/>
+            <input type="text" value={query} name='searchBar' onChange={(e) => setQuery(e.target.value)}/>
             <button type='submit' onClick={handleSubmit}>Search</button>
 
             <TeamList teams={teams} setTeams={setTeams}/>
@@ -30,18 +29,20 @@ function TeamList({teams, setTeams}) {
             const data = await response.json();
             setTeams(data.data);
         }
+
         getTeams();
     }, [setTeams]);
 
     return (
-        <div className='teamInfo'>
+        <div>
             {teams.map(({full_name, id, name}) => (
-                <div key={id}>
-                    <h4>
-                        <a href={`https://www.nba.com/${name}/`}>
+                <div className='teamInfo' key={id}>
+                    <a href={`https://www.nba.com/${name}/`}>
+
+                        <h4>
                             {full_name}
-                        </a>
-                    </h4>
+                        </h4>
+                    </a>
                 </div>
             ))}
         </div>
