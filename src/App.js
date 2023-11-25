@@ -1,25 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import {useEffect, useState} from "react";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [players, setPlayers] = useState([]);
+    const [query, setQuery] = useState('space jam');
+    const key = '45ea8b08';
+
+    function logData() {
+        console.log(players);
+    }
+    useEffect(() => {
+        async function getData() {
+            try {
+                const res = await fetch(`https://api-nba-v1.p.rapidapi.com/players/teamId/1`)
+                const data = await res.json();
+                setPlayers(data);
+                console.log(data);
+            } catch (e) {
+                console.error(e);
+            } finally {
+                console.log('done');
+            }
+        }
+
+        getData();
+
+    }, [query]);
+
+    return (
+        <div className="App">
+            <input type="text" value='' name='searchBar'/>
+            <button onClick={logData}>Search</button>
+
+
+        </div>
+    );
 }
+
 
 export default App;
