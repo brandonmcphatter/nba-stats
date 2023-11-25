@@ -2,37 +2,48 @@ import './App.css';
 import {useEffect, useState} from "react";
 
 function App() {
-    const [players, setPlayers] = useState([]);
-    const [query, setQuery] = useState('space jam');
-    const key = '45ea8b08';
+    const [query, setQuery] = useState('');
+    const [teams, setTeams] = useState([]);
 
-    function logData() {
-        console.log(players);
+
+
+    function handleSubmit() {
+        console.log(teams[0])
     }
-    useEffect(() => {
-        async function getData() {
-            try {
-                const res = await fetch(`https://api-nba-v1.p.rapidapi.com/players/teamId/1`)
-                const data = await res.json();
-                setPlayers(data);
-                console.log(data);
-            } catch (e) {
-                console.error(e);
-            } finally {
-                console.log('done');
-            }
-        }
-
-        getData();
-
-    }, [query]);
 
     return (
         <div className="App">
-            <input type="text" value='' name='searchBar'/>
-            <button onClick={logData}>Search</button>
+            <h1>The NBA App</h1>
+            <input type="text" value={query} name='searchBar' onChange={(e)=> setQuery(e.target.value)}/>
+            <button type='submit' onClick={handleSubmit}>Search</button>
 
+            <TeamList teams={teams} setTeams={setTeams}/>
+        </div>
+    );
+}
 
+function TeamList({teams, setTeams}) {
+
+    useEffect(() => {
+        async function getTeams() {
+            const response = await fetch(`https://www.balldontlie.io/api/v1/teams`);
+            const data = await response.json();
+            setTeams(data.data);
+        }
+        getTeams();
+    }, [setTeams]);
+
+    return (
+        <div className='teamInfo'>
+            {teams.map(({full_name, id, name}) => (
+                <div key={id}>
+                    <h4>
+                        <a href={`https://www.nba.com/${name}/`}>
+                            {full_name}
+                        </a>
+                    </h4>
+                </div>
+            ))}
         </div>
     );
 }
