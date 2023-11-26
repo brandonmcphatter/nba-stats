@@ -17,12 +17,12 @@ export default function PlayerList({players, setPlayers, query}) {
             <div>
                 {players.map(({first_name, last_name, id, team}) => (
                     <div className='playerInfo' key={id}>
-                        <h5>
-                            {first_name} {last_name}
-                        </h5>
                         <h4>
-                            {team.full_name}
+                            {first_name} {last_name}
                         </h4>
+                        <h5>
+                            {team.full_name}
+                        </h5>
                     </div>
                 ))}
             </div>

@@ -1,7 +1,14 @@
 .App {
   text-align: center;
 }
-
+.header {
+    background-color: #222;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
 .teamInfo {
   border: 1px solid black;
   padding: 10px;
@@ -9,7 +16,25 @@
   background-color: gray;
   color: black;
 }
+.display {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.teamBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.playerBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 a {
   color: black;
   text-decoration: none;
+}
+a:hover {
+  color: white;
 }

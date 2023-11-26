@@ -1,4 +1,5 @@
 import {useEffect} from "react";
+import TeamInfo from "./TeamInfo";
 
 export default function TeamList({teams, setTeams}) {
 
@@ -15,13 +16,7 @@ export default function TeamList({teams, setTeams}) {
     return (
         <div>
             {teams.map(({full_name, id, name}) => (
-                <div className='teamInfo' key={id}>
-                    <a href={`https://www.nba.com/${name}/`} target='blank'>
-                        <h4>
-                            {full_name}
-                        </h4>
-                    </a>
-                </div>
+                <TeamInfo key={id} full_name={full_name} id={id} name={name}/>
             ))}
         </div>
     );
